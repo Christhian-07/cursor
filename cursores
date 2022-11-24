@@ -1,0 +1,19 @@
+
+/*Un cursor que muestre el numero de estudiantes que sufrieron 
+una sanción diciplinaria por perdida de armas */
+
+do $$
+DECLARE
+ndatos Record;
+c_ncursor cursor for select * from estudiante join sancion
+on sancion.id_sancion = estudiante.id_estudiante
+where sancion.id_sancion = estudiante.id_estudiante  
+order by ndatos;
+BEGIN
+for ndatos in c_ncursor loop
+fetch c_ncursor into ndatos;
+raise notice 'NOMBRE: % ,APELLIDO: %, MOTIVOSANCION: % ,TIPOSANCION: % ', ndatos.nombre,
+ndatos.apellido,ndatos.motivo_sancion,ndatos.tipo_sancion;
+end loop;
+end $$
+language 'plpgsql';
